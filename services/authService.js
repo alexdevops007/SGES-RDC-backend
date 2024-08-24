@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Role = require("../models/roleModel");
 const bcrypt = require("bcryptjs");
-const config = require("../config/authConfig");
+const config = require("../config");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, config.jwtSecret, {
