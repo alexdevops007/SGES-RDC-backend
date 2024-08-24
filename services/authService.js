@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const Role = require("../models/roleModel");
-const bcrypt = require("bcryptjs");
-const config = require("../config");
+const config = require("../config/index");
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, config.jwtSecret, {
-    expiresIn: "30d",
+  return jwt.sign({ id }, config.jwt.secret, {
+    expiresIn: config.jwt.expiresIn,
   });
 };
 

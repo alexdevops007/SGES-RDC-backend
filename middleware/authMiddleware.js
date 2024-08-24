@@ -1,7 +1,8 @@
+// backend/middleware/authMiddleware.js
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-const config = require("../config");
+const config = require("../config/index");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -12,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, config.jwtSecret);
+      const decoded = jwt.verify(token, config.jwt.secret);
 
       req.user = await User.findById(decoded.id).select("-password");
 
@@ -21,9 +22,7 @@ const protect = asyncHandler(async (req, res, next) => {
       res.status(401);
       throw new Error("Not authorized, token failed");
     }
-  }
-
-  if (!token) {
+  } else {
     res.status(401);
     throw new Error("Not authorized, no token");
   }
