@@ -26,7 +26,7 @@ const io = socketIo(server, {
 
 // Cors option
 const corsOptions = {
-  origin: ["http://localhost:8080", "https://hydro-contract.vercel.app"],
+  origin: ["http://localhost:8080", "https://sges-rdc-frontend.vercel.app"],
   optionsSuccessStatus: 200,
   methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
   allowedHeaders: "Content-Type,Authorization",
@@ -74,12 +74,10 @@ mongoose
     console.error(`Error connecting to MongoDB: ${error.message}`)
   );
 
-/*
 app.use("/proxy", (req, res) => {
-  const url = "https://mokombati-backend-family.vercel.app" + req.url;
+  const url = "https://sges-rdc-backend.vercel.app" + req.url;
   req.pipe(request({ qs: req.query, uri: url })).pipe(res);
 });
-*/
 
 app.get("/api", (req, res) => {
   res.status(200).json({ message: "Bienvenue sur l'api SGES-RDC" });
